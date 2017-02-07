@@ -7,22 +7,27 @@ namespace SimpleCalculator.Tests
     [TestClass]
     public class ParserTests
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-            Parser parser = new Parser();
-            parser.ParseInput("1 + 1");
-            //Assert.IsInstanceOfType(actualValue, typeof(Expression));
+        Parser parser = new Parser();
 
+        [TestMethod]
+        public void AccessFirstTerm()
+        {
+            parser.ParseInput("2 + 1");
+            Assert.AreEqual(parser.FirstTerm, 2);
         }
 
         [TestMethod]
-        public void Test2()
+        public void AccessSecondTerm()
         {
-            /*Parser parser = new Parser();
-            string expectedValue = "last";
-            var actualValue = parser.ParseInput("last");
-            Assert.AreEqual(actualValue, expectedValue);*/
+            parser.ParseInput("5 + 10");
+            Assert.AreEqual(parser.SecondTerm, 10);
+        }
+
+        [TestMethod]
+        public void AccessOperator()
+        {
+            parser.ParseInput("5 % 3");
+            Assert.AreEqual(parser.Operator, '%');
         }
     }
 }

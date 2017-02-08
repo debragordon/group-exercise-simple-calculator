@@ -17,7 +17,7 @@ namespace SimpleCalculator
         {
             try
             {
-                string pattern = @"\b([a-zA-Z]\b|\d+)\s*([\+\-*\/%\=]{1})\s*\b([a-zA-Z]\b|\d+)";
+                string pattern = @"^\b([a-zA-Z]\b|\d+)\s*([\+\-*\/%\=]{1})\s*\b([a-zA-Z]\b|\d+)";
 
                 Match match = Regex.Match(input, pattern);
                 if (match.Success)

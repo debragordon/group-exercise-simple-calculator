@@ -28,15 +28,14 @@ namespace SimpleCalculator
                 }
                 else
                 {
-                    throw new ArgumentException("Bad Expression entered.");
+                    throw new ArgumentException();
                 }
             }
-            catch (Exception e)
+            catch (ArgumentException ae)
             {
-                Console.WriteLine(e.Message);
-                Operator = '!';
+                Console.WriteLine(ae.Message);
+                throw new ArgumentException(ae.Message);
             }
-
         }
     }
 }

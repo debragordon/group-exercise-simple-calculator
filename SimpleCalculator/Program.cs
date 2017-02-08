@@ -63,86 +63,78 @@ namespace SimpleCalculator
                         parser.ParseInput(userInput);
                         int firstTerm = 0;
                         int secondTerm = 0;
-                        if (!parser.Operator.Equals('!'))
+                        if (parser.Operator.Equals('='))
                         {
-                            if (parser.Operator.Equals('='))
+                            try
                             {
-                                try
-                                {
-                                    constants.Add(char.Parse(parser.FirstTerm.ToLower()), int.Parse(parser.SecondTerm));
-                                }
-                                catch (ArgumentException)
-                                {
-                                    Console.WriteLine($"A constant with key \"{parser.FirstTerm}\" already exists.");
-                                }
+                                constants.Add(char.Parse(parser.FirstTerm.ToLower()), int.Parse(parser.SecondTerm));
                             }
-                            else
+                            catch (ArgumentException)
                             {
-                                if (parser.FirstTerm.Length > 1)
-                                {
-                                    if (parser.SecondTerm.Length > 1)
-                                    {
-                                        firstTerm = int.Parse(parser.FirstTerm);
-                                        secondTerm = int.Parse(parser.SecondTerm);
-                                    }
-                                    else
-                                    {
-                                        firstTerm = int.Parse(parser.FirstTerm);
-                                        if (constants.ContainsKey(char.Parse(parser.SecondTerm)))
-                                        {
-                                            secondTerm = constants[char.Parse(parser.SecondTerm)];
-                                        }
-                                        else
-                                        {
-                                            secondTerm = int.Parse(parser.SecondTerm);
-                                        }
-
-                                    }
-
-                                }
-                                else if (parser.SecondTerm.Length > 1 && parser.FirstTerm.Length == 1)
-                                {
-
-                                    if (constants.ContainsKey(char.Parse(parser.FirstTerm)))
-                                    {
-                                        firstTerm = constants[char.Parse(parser.FirstTerm)];
-                                    }
-                                    else
-                                    {
-                                        firstTerm = int.Parse(parser.SecondTerm);
-                                    }
-
-                                    secondTerm = int.Parse(parser.SecondTerm);
-                                }
-                                else if (constants.ContainsKey(char.Parse(parser.FirstTerm.ToLower())) && constants.ContainsKey(char.Parse(parser.SecondTerm)))
-                                {
-                                    firstTerm = constants[char.Parse(parser.FirstTerm.ToLower())];
-                                    secondTerm = constants[char.Parse(parser.SecondTerm)];
-                                }
-                                else if (constants.ContainsKey(char.Parse(parser.FirstTerm.ToLower())))
-                                {
-                                    firstTerm = constants[char.Parse(parser.FirstTerm.ToLower())];
-                                    secondTerm = int.Parse(parser.SecondTerm);
-                                }
-                                else if (constants.ContainsKey(char.Parse(parser.SecondTerm)))
-                                {
-                                    firstTerm = int.Parse(parser.FirstTerm);
-                                    secondTerm = constants[char.Parse(parser.SecondTerm.ToLower())];
-                                }
-                                else
-                                {
-                                    firstTerm = int.Parse(parser.FirstTerm);
-                                    secondTerm = int.Parse(parser.SecondTerm);
-                                }
-                                int calculatedResult = evaluate.Calculate(firstTerm, secondTerm, parser.Operator); //test code -- fix when parser updated
-                                stack.LastAnswer = calculatedResult;
-                                Console.WriteLine($" = {calculatedResult}");
+                                Console.WriteLine($"A constant with key \"{parser.FirstTerm}\" already exists.");
                             }
                         }
                         else
                         {
-                            Console.WriteLine($"Sorry, { userInput } is not a valid request.");
-                            Console.WriteLine("Try again, something more simple like: 2 + 1. Take it easy on me");
+                            if (parser.FirstTerm.Length > 1)
+                            {
+                                if (parser.SecondTerm.Length > 1)
+                                {
+                                    firstTerm = int.Parse(parser.FirstTerm);
+                                    secondTerm = int.Parse(parser.SecondTerm);
+                                }
+                                else
+                                {
+                                    firstTerm = int.Parse(parser.FirstTerm);
+                                    if (constants.ContainsKey(char.Parse(parser.SecondTerm)))
+                                    {
+                                        secondTerm = constants[char.Parse(parser.SecondTerm)];
+                                    }
+                                    else
+                                    {
+                                        secondTerm = int.Parse(parser.SecondTerm);
+                                    }
+
+                                }
+
+                            }
+                            else if (parser.SecondTerm.Length > 1 && parser.FirstTerm.Length == 1)
+                            {
+
+                                if (constants.ContainsKey(char.Parse(parser.FirstTerm)))
+                                {
+                                    firstTerm = constants[char.Parse(parser.FirstTerm)];
+                                }
+                                else
+                                {
+                                    firstTerm = int.Parse(parser.FirstTerm);
+                                }
+
+                                secondTerm = int.Parse(parser.SecondTerm);
+                            }
+                            else if (constants.ContainsKey(char.Parse(parser.FirstTerm.ToLower())) && constants.ContainsKey(char.Parse(parser.SecondTerm)))
+                            {
+                                firstTerm = constants[char.Parse(parser.FirstTerm.ToLower())];
+                                secondTerm = constants[char.Parse(parser.SecondTerm)];
+                            }
+                            else if (constants.ContainsKey(char.Parse(parser.FirstTerm.ToLower())))
+                            {
+                                firstTerm = constants[char.Parse(parser.FirstTerm.ToLower())];
+                                secondTerm = int.Parse(parser.SecondTerm);
+                            }
+                            else if (constants.ContainsKey(char.Parse(parser.SecondTerm)))
+                            {
+                                firstTerm = int.Parse(parser.FirstTerm);
+                                secondTerm = constants[char.Parse(parser.SecondTerm.ToLower())];
+                            }
+                            else
+                            {
+                                firstTerm = int.Parse(parser.FirstTerm);
+                                secondTerm = int.Parse(parser.SecondTerm);
+                            }
+                            int calculatedResult = evaluate.Calculate(firstTerm, secondTerm, parser.Operator); //test code -- fix when parser updated
+                            stack.LastAnswer = calculatedResult;
+                            Console.WriteLine($" = {calculatedResult}");
                         }
                     }
                     catch (Exception)

@@ -65,14 +65,23 @@ namespace SimpleCalculator
                         int secondTerm = 0;
                         if (parser.Operator.Equals('='))
                         {
-                            try
+                            int n;
+                            bool isNumeric = int.TryParse(parser.FirstTerm, out n);
+                            if (isNumeric == false)
                             {
-                                constants.Add(char.Parse(parser.FirstTerm.ToLower()), int.Parse(parser.SecondTerm));
+                                try
+                                {
+                                    constants.Add(char.Parse(parser.FirstTerm.ToLower()), int.Parse(parser.SecondTerm));
+                                }
+                                catch (ArgumentException)
+                                {
+                                    Console.WriteLine($"A constant with key \"{parser.FirstTerm}\" already exists.");
+                                }
                             }
-                            catch (ArgumentException)
+                            else
                             {
-                                Console.WriteLine($"A constant with key \"{parser.FirstTerm}\" already exists.");
-                            }
+                                Console.WriteLine($"Invalid constant! Please use lowercase letters for constants.");
+                            }                           
                         }
                         else
                         {

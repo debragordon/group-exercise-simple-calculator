@@ -30,6 +30,8 @@ namespace SimpleCalculator
             Console.WriteLine("Get your last answer by typing last");
             Console.WriteLine("Get your last question by typing lastq");
             Console.WriteLine("You can also define constants to use in your expressions. ( x = 1 )");
+            Console.WriteLine("Get a list of constants by typing constants");
+
             Console.WriteLine("Exit at anytime by typing exit / quit / escape / stop");
 
             while (true)
@@ -52,6 +54,13 @@ namespace SimpleCalculator
                 {
                     // calls lastanswer from stack
                     Console.WriteLine(stack.LastAnswer);
+                }
+                else if (userInput.Equals("constants"))
+                {
+                    foreach (KeyValuePair<char, int> kvp in constants)
+                    {
+                        Console.WriteLine("Constant = {0}, Value = {1}", kvp.Key, kvp.Value);
+                    }
                 }
                 else
                 {
@@ -81,7 +90,7 @@ namespace SimpleCalculator
                             else
                             {
                                 Console.WriteLine($"Invalid constant! Please use lowercase letters for constants.");
-                            }                           
+                            }
                         }
                         else
                         {
